@@ -1,0 +1,35 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  font-family: "DM Sans", system-ui, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  -webkit-font-smoothing: antialiased;
+}
+
+:root {
+  --bg: #0a0d12;
+  --bg-elevated: #121826;
+  --surface: #161f2e;
+  --border: #2a3447;
+  --text: #eef2f7;
+  --muted: #8b9cb3;
+  --accent: #e85454;
+  --accent-dim: #9a3038;
+  --warn: #d4a017;
+  --ok: #3fb950;
+  --ring: rgba(232, 84, 84, 0.35);
+  --chip-bg: rgba(99, 179, 237, 0.12);
+  --chip-border: rgba(99, 179, 237, 0.25);
+}
