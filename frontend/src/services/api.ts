@@ -54,7 +54,7 @@ export async function compareFiles(files: File[]): Promise<CompareFilesResponse>
     fd.append("files", file, file.name);
   }
 
-  const res = await fetch(`${API_BASE}/api/analyze`, {
+  const res = await fetch(`${API_BASE}/compare-files`, {
     method: "POST",
     body: fd,
   });
