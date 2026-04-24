@@ -1,0 +1,1 @@
+﻿Software for detecting plagiarism checks submitted text against existing works. It finds identical sequences and produces a similarity score.

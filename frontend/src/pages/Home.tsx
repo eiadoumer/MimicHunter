@@ -3,7 +3,12 @@ import { useState } from "react";
 import ResultsList from "../components/ResultsList";
 import StatusMessage from "../components/StatusMessage";
 import { compareFiles } from "../services/api";
-import type { CompareFilesResponse } from "../types/plagiarism";
+import type { CompareFilesResponse, DocumentSummary } from "../types/plagiarism";
+
+function docDisplayName(documents: DocumentSummary[], id: number) {
+  const row = documents.find((d) => d.id === id);
+  return row?.filename?.trim() ? row.filename : `Document ${id}`;
+}
 
 function similarityTier(score: number) {
   if (score >= 0.5) return { tier: "high", label: "HIGH SIMILARITY (plagiarism suspected)" };
@@ -154,8 +159,9 @@ export default function Home() {
                 <span className="stats-strip__value">{result.documents.length}</span>
               </div>
               <div className="stats-strip__item">
-                <span className="stats-strip__label">Pairs compared</span>
+                <span className="stats-strip__label">Top pairs shown</span>
                 <span className="stats-strip__value">{result.pairs.length}</span>
+                <span className="stats-strip__hint">(max 50)</span>
               </div>
               <div className="stats-strip__item">
                 <span className="stats-strip__label">Suspicious pairs</span>
@@ -174,14 +180,22 @@ export default function Home() {
                 {result.documents.map((d) => (
                   <li key={d.id}>
                     <span className="doc-index__id">{d.id}</span>
-                    <span>{`Document ${d.id}`}</span>
+                    <span className="doc-index__name">{docDisplayName(result.documents, d.id)}</span>
                   </li>
                 ))}
               </ul>
             </section>
 
-            <ResultsList title="Top overlapping pairs" items={result.pairs} />
-            <ResultsList title="Suspicious documents / pairs" items={result.suspicious_pairs} />
+            <ResultsList
+              title="Top overlapping pairs"
+              items={result.pairs}
+              docLabel={(id) => docDisplayName(result.documents, id)}
+            />
+            <ResultsList
+              title="Suspicious documents / pairs"
+              items={result.suspicious_pairs}
+              docLabel={(id) => docDisplayName(result.documents, id)}
+            />
           </>
         )}
       </main>

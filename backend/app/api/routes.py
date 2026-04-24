@@ -1,3 +1,5 @@
+import os
+
 from fastapi import APIRouter, File, UploadFile
 from fastapi.responses import JSONResponse
 
@@ -21,7 +23,7 @@ async def compare_files(files: list[UploadFile] = File(...)):
 
     file_pairs = []
     for upload in files:
-        name = upload.filename or "document.txt"
+        name = os.path.basename(upload.filename or "document.txt")
         if not name.lower().endswith(".txt"):
             return JSONResponse(
                 {"error": f"Only .txt files are supported (got: {name})."},

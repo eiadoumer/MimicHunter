@@ -1,0 +1,1 @@
+﻿Plagiarism detection software compares text against a database of sources. It identifies matching phrases and generates a similarity report. It highlights overlapping content.

@@ -1,0 +1,1 @@
+﻿Anti-plagiarism tools compare your text to a reference database. They identify reused sentences and create a similarity index.

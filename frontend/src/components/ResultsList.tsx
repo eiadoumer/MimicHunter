@@ -4,9 +4,10 @@ import ResultCard from "./ResultCard";
 type Props = {
   title: string;
   items: PairResult[];
+  docLabel: (id: number) => string;
 };
 
-export default function ResultsList({ title, items }: Props) {
+export default function ResultsList({ title, items, docLabel }: Props) {
   return (
     <section className="panel panel--pairs">
       <div className="panel__intro">
@@ -18,7 +19,11 @@ export default function ResultsList({ title, items }: Props) {
       ) : (
         <div className="pair-grid">
           {items.map((item) => (
-            <ResultCard key={`${item.doc_a}-${item.doc_b}-${item.rank}`} pair={item} />
+            <ResultCard
+              key={`${item.doc_a}-${item.doc_b}-${item.rank}`}
+              pair={item}
+              docLabel={docLabel}
+            />
           ))}
         </div>
       )}

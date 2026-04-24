@@ -4,6 +4,17 @@ Mimic Hunter is a modular full-stack plagiarism similarity detector:
 - **Backend:** FastAPI (`backend/app`)
 - **Frontend:** Vite + React + TypeScript (`frontend`)
 
+
+## Run Terminal Version (Windows CMD, Local)
+
+From the project root :
+
+```bat
+pip install -r backend\requirements.txt
+python backend\app\terminal_based_code.py
+```
+
+
 ## How It Works
 
 1. **Read documents**  

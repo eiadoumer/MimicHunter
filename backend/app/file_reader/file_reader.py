@@ -25,6 +25,6 @@ def read_uploaded_files(uploaded_files):
     sorted_files = merge_sort(list(uploaded_files))
     for filename, text in sorted_files:
         words = normalize_text_to_words(text)
-        documents.append((doc_id, words))
+        documents.append((doc_id, filename, words))
         doc_id += 1
     return documents

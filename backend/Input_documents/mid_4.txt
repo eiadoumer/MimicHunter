@@ -1,0 +1,1 @@
+﻿Plagiarism detection algorithms analyze text overlaps with source documents. They generate a report of matching content and similarity rate.

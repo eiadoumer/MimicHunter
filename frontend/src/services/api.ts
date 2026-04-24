@@ -37,7 +37,11 @@ function normalizeResponse(data: CompareFilesResponse | LegacyAnalyzeResponse): 
   }));
 
   const suspicious_pairs = pairs.filter((p) => p.score >= high);
-  const documents = (data.documents ?? []).map((d) => ({ id: d.id, token_count: 0 }));
+  const documents = (data.documents ?? []).map((d) => ({
+    id: d.id,
+    filename: d.filename,
+    token_count: 0,
+  }));
 
   return {
     documents,
@@ -54,7 +58,7 @@ export async function compareFiles(files: File[]): Promise<CompareFilesResponse>
     fd.append("files", file, file.name);
   }
 
-  const res = await fetch(`${API_BASE}/compare-files`, {
+  const res = await fetch(`${API_BASE}/api/analyze`, {
     method: "POST",
     body: fd,
   });

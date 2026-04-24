@@ -1,0 +1,1 @@
+﻿Plagiarism checkers scan documents and compare with online content. They detect copied phrases and output a matching percentage.

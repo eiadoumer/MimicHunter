@@ -8,6 +8,7 @@ export type PairResult = {
 
 export type DocumentSummary = {
   id: number;
+  filename?: string;
   token_count: number;
 };
 

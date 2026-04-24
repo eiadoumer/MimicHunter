@@ -1,0 +1,1 @@
+﻿A plagiarism detector compares input text against stored sources. It finds duplicate passages and reports the similarity level.
