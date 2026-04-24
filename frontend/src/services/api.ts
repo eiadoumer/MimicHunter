@@ -44,6 +44,8 @@ function normalizeResponse(data: CompareFilesResponse | LegacyAnalyzeResponse): 
   }));
 
   return {
+    note:
+      "Pair lists are limited to 50 entries for optimization (smaller payloads and faster responses).",
     documents,
     pairs,
     suspicious_pairs,

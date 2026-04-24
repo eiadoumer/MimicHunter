@@ -4,6 +4,10 @@ from app.jaccard_similarity.jaccard_similarity import compute_all_jaccard
 from app.preprocessing.preprocessing import preprocess_documents
 
 MAX_RESPONSE_PAIRS = 50
+OUTPUT_LIMIT_NOTE = (
+    f"Pair lists are limited to {MAX_RESPONSE_PAIRS} entries for optimization "
+    "(smaller payloads and faster responses)."
+)
 
 
 def run_plagiarism_pipeline(uploaded_files):
@@ -71,6 +75,7 @@ def run_plagiarism_pipeline(uploaded_files):
 
     bucket_summary = {"total_ngrams": total_ngrams, "buckets": buckets}
     return {
+        "note": OUTPUT_LIMIT_NOTE,
         "documents": [
             {"id": doc_id, "filename": filename, "token_count": len(tokens)}
             for doc_id, filename, tokens in documents

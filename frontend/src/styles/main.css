@@ -119,6 +119,17 @@
   color: var(--muted);
 }
 
+.results-note {
+  margin: 0 0 1rem;
+  padding: 0.65rem 0.85rem;
+  font-size: 0.8rem;
+  line-height: 1.45;
+  color: var(--muted);
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+}
+
 .stats-strip__item .pill {
   align-self: flex-start;
   margin-top: 0.15rem;

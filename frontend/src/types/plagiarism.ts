@@ -18,6 +18,7 @@ export type BucketSummary = {
 };
 
 export type CompareFilesResponse = {
+  note?: string;
   documents: DocumentSummary[];
   pairs: PairResult[];
   suspicious_pairs: PairResult[];

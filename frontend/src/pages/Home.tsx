@@ -161,7 +161,7 @@ export default function Home() {
               <div className="stats-strip__item">
                 <span className="stats-strip__label">Top pairs shown</span>
                 <span className="stats-strip__value">{result.pairs.length}</span>
-                <span className="stats-strip__hint">(max 50)</span>
+                <span className="stats-strip__hint">(capped)</span>
               </div>
               <div className="stats-strip__item">
                 <span className="stats-strip__label">Suspicious pairs</span>
@@ -173,6 +173,11 @@ export default function Home() {
                 <span className={`pill pill--${topTier.tier}`}>{topTier.label}</span>
               </div>
             </section>
+
+            <p className="results-note">
+              {result.note ??
+                "Pair lists are limited to 50 entries for optimization (smaller payloads and faster responses)."}
+            </p>
 
             <section className="panel panel--results">
               <h2>Document index</h2>
