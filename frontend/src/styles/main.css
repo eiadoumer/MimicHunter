@@ -295,7 +295,50 @@
 .actions {
   margin-top: 1.25rem;
   display: flex;
+  align-items: flex-end;
+  gap: 1rem;
+  flex-wrap: wrap;
   justify-content: flex-end;
+}
+
+.analysis-controls {
+  display: flex;
+  align-items: flex-end;
+  gap: 1rem;
+  margin-right: auto;
+  flex-wrap: wrap;
+}
+
+.analysis-controls__field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.analysis-controls__label {
+  font-size: 0.72rem;
+  color: var(--muted);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  font-weight: 600;
+}
+
+.analysis-controls__input {
+  width: 84px;
+  background: var(--surface);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 0.45rem 0.55rem;
+  font: inherit;
+}
+
+.analysis-controls__checkbox {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-size: 0.88rem;
+  color: var(--text);
 }
 
 .btn {

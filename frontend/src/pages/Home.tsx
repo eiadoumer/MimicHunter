@@ -22,6 +22,9 @@ export default function Home() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [result, setResult] = useState<CompareFilesResponse | null>(null);
+  const [ngramSize, setNgramSize] = useState(2);
+  const [applyStemming, setApplyStemming] = useState(true);
+  const [removeStopwords, setRemoveStopwords] = useState(true);
 
   async function onRun() {
     setError(null);
@@ -32,7 +35,7 @@ export default function Home() {
     }
     setLoading(true);
     try {
-      const data = await compareFiles(files);
+      const data = await compareFiles(files, { ngramSize, applyStemming, removeStopwords });
       setResult(data);
     } catch (err) {
       const message = err instanceof Error ? err.message : "Unknown error";
@@ -142,6 +145,45 @@ export default function Home() {
               ))}
             </ul>
             <div className="actions">
+              <div className="analysis-controls">
+                <label className="analysis-controls__field">
+                  <span className="analysis-controls__label">n-gram size</span>
+                  <input
+                    className="analysis-controls__input"
+                    type="number"
+                    min={1}
+                    max={5}
+                    value={ngramSize}
+                    onChange={(e) => {
+                      const parsed = Number(e.target.value);
+                      if (!Number.isNaN(parsed)) {
+                        setNgramSize(Math.min(5, Math.max(1, Math.trunc(parsed))));
+                      }
+                    }}
+                    disabled={loading}
+                  />
+                </label>
+
+                <label className="analysis-controls__checkbox">
+                  <input
+                    type="checkbox"
+                    checked={applyStemming}
+                    onChange={(e) => setApplyStemming(e.target.checked)}
+                    disabled={loading}
+                  />
+                  <span>Apply stemming</span>
+                </label>
+
+                <label className="analysis-controls__checkbox">
+                  <input
+                    type="checkbox"
+                    checked={removeStopwords}
+                    onChange={(e) => setRemoveStopwords(e.target.checked)}
+                    disabled={loading}
+                  />
+                  <span>Remove stopwords</span>
+                </label>
+              </div>
               <button type="button" className="btn btn--primary" onClick={onRun} disabled={loading}>
                 {loading ? "Analyzing..." : "Run plagiarism detection"}
               </button>

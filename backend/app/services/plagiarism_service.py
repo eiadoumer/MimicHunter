@@ -11,7 +11,9 @@ OUTPUT_LIMIT_NOTE = (
 )
 
 
-def run_plagiarism_pipeline(uploaded_files):
+def run_plagiarism_pipeline(
+    uploaded_files, ngram_size=2, apply_stemming=True, remove_stopwords=True
+):
     documents = read_uploaded_files(uploaded_files)
     if len(documents) < 2:
         return {"error": "At least two .txt documents are required."}
@@ -19,9 +21,9 @@ def run_plagiarism_pipeline(uploaded_files):
     doc_rows = [(doc_id, words) for doc_id, _filename, words in documents]
     clean_documents = preprocess_documents(
         doc_rows,
-        remove_stopwords=True,
-        apply_stemming=True,
-        ngram_size=2,
+        remove_stopwords=remove_stopwords,
+        apply_stemming=apply_stemming,
+        ngram_size=ngram_size,
     )
     inverted_index = build_inverted_index(clean_documents)
     rb_tree = compute_all_jaccard(clean_documents, inverted_index)
@@ -98,6 +100,11 @@ def run_plagiarism_pipeline(uploaded_files):
     bucket_summary = {"total_ngrams": total_ngrams, "buckets": buckets}
     return {
         "note": OUTPUT_LIMIT_NOTE,
+        "analysis_options": {
+            "ngram_size": ngram_size,
+            "apply_stemming": apply_stemming,
+            "remove_stopwords": remove_stopwords,
+        },
         "documents": [
             {"id": doc_id, "filename": filename, "token_count": len(tokens)}
             for doc_id, filename, tokens in documents
