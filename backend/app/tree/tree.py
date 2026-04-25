@@ -119,8 +119,8 @@ class RedBlackTree:
     def inorder_reverse(self, node, result):
         if node == self.TNULL:
             return
-        self.inorder_reverse(node.right, result)
-        result.append((node.pair[0], node.pair[1], node.score))
+        self.inorder_reverse(node.right, result)  # calling on node.right instead of node.left  -> Descending order
+        result.append((node.pair[0], node.pair[1], node.score))  #  (doc_id_1, doc_id_2, similarity_score)
         self.inorder_reverse(node.left, result)
 
     def get_sorted_descending(self):
@@ -148,6 +148,6 @@ class RedBlackTree:
             return
         self.collect_high_similarity(node.right, result, threshold)
 
-        if node.score >= threshold:
+        if node.score >= threshold:  # go left only if node.root.score is >= threshold
             result.append((node.pair[0], node.pair[1], node.score))
             self.collect_high_similarity(node.left, result, threshold)

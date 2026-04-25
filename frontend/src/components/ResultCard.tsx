@@ -7,6 +7,10 @@ type Props = {
 };
 
 export default function ResultCard({ pair, docLabel }: Props) {
+  const sharedNgrams = pair.shared_ngrams ?? [];
+  const totalShared = pair.shared_ngrams_total ?? sharedNgrams.length;
+  const hiddenCount = Math.max(totalShared - sharedNgrams.length, 0);
+
   return (
     <article className="pair-card">
       <div className="pair-card__top">
@@ -26,6 +30,26 @@ export default function ResultCard({ pair, docLabel }: Props) {
           <span className="pair-card__pct">{(pair.score * 100).toFixed(2)}%</span>
           <ScoreBadge score={pair.score} label={pair.label} />
         </div>
+      </div>
+
+      <div className="pair-card__shared">
+        <p className="pair-card__shared-title">Similar text (shared word pairs)</p>
+        {sharedNgrams.length === 0 ? (
+          <p className="pair-card__shared-empty">No shared shingles were detected for this pair.</p>
+        ) : (
+          <>
+            <div className="pair-card__chips">
+              {sharedNgrams.map((ngram) => (
+                <span key={`${pair.doc_a}-${pair.doc_b}-${ngram}`} className="pair-card__chip">
+                  {ngram}
+                </span>
+              ))}
+            </div>
+            {hiddenCount > 0 && (
+              <p className="pair-card__shared-more">+ {hiddenCount} more shared pairs not shown</p>
+            )}
+          </>
+        )}
       </div>
     </article>
   );

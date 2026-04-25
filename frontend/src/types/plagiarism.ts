@@ -4,6 +4,8 @@ export type PairResult = {
   doc_b: number;
   score: number;
   label: string;
+  shared_ngrams?: string[];
+  shared_ngrams_total?: number;
 };
 
 export type DocumentSummary = {

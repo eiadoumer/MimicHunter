@@ -4,6 +4,7 @@ from app.jaccard_similarity.jaccard_similarity import compute_all_jaccard
 from app.preprocessing.preprocessing import preprocess_documents
 
 MAX_RESPONSE_PAIRS = 50
+MAX_SHARED_NGRAMS_PER_PAIR = 40
 OUTPUT_LIMIT_NOTE = (
     f"Pair lists are limited to {MAX_RESPONSE_PAIRS} entries for optimization "
     "(smaller payloads and faster responses)."
@@ -24,6 +25,15 @@ def run_plagiarism_pipeline(uploaded_files):
     )
     inverted_index = build_inverted_index(clean_documents)
     rb_tree = compute_all_jaccard(clean_documents, inverted_index)
+    clean_doc_sets = {doc_id: set(ngrams) for doc_id, ngrams in clean_documents}
+
+    def get_shared_ngrams(doc1, doc2):
+        shared = clean_doc_sets[doc1].intersection(clean_doc_sets[doc2])
+        sorted_shared = sorted(" ".join(ngram) for ngram in shared)
+        return {
+            "shared_ngrams": sorted_shared[:MAX_SHARED_NGRAMS_PER_PAIR],
+            "shared_ngrams_total": len(sorted_shared),
+        }
 
     all_pairs = rb_tree.get_sorted_descending()[:MAX_RESPONSE_PAIRS]
     high_pairs = []
@@ -37,8 +47,17 @@ def run_plagiarism_pipeline(uploaded_files):
             label = "HIGH SIMILARITY"
         elif score >= 0.25:
             label = "MODERATE SIMILARITY"
+        shared_data = get_shared_ngrams(doc1, doc2)
         ranked_pairs.append(
-            {"rank": rank, "doc_a": doc1, "doc_b": doc2, "score": score, "label": label}
+            {
+                "rank": rank,
+                "doc_a": doc1,
+                "doc_b": doc2,
+                "score": score,
+                "label": label,
+                "shared_ngrams": shared_data["shared_ngrams"],
+                "shared_ngrams_total": shared_data["shared_ngrams_total"],
+            }
         )
 
     suspicious_pairs = []
@@ -51,6 +70,7 @@ def run_plagiarism_pipeline(uploaded_files):
             label = "LEAST SIMILAR"
         elif score >= 0.75:
             label = "SUSPICIOUS"
+        shared_data = get_shared_ngrams(doc1, doc2)
 
         suspicious_pairs.append(
             {
@@ -59,6 +79,8 @@ def run_plagiarism_pipeline(uploaded_files):
                 "doc_b": doc2,
                 "score": score,
                 "label": label,
+                "shared_ngrams": shared_data["shared_ngrams"],
+                "shared_ngrams_total": shared_data["shared_ngrams_total"],
             }
         )
 

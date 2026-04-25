@@ -40,7 +40,7 @@ def build_inverted_index(documents):
     return table
 
 
-def lookup_ngram(ngram, inverted_index):
+def lookup_ngram(ngram, inverted_index):  #  return  doc ids that contain this ngram
     """Retrieve the bigram's posting list (doc ids) via the same probe logic as build."""
     first_char = ngram[0][0]
     if not ("a" <= first_char <= "z"):

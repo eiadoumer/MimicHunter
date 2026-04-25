@@ -7,6 +7,8 @@ class PairResult(BaseModel):
     doc_b: int
     score: float
     label: str
+    shared_ngrams: list[str] = []
+    shared_ngrams_total: int = 0
 
 
 class DocumentSummary(BaseModel):

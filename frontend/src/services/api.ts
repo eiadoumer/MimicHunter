@@ -7,6 +7,8 @@ type LegacyAnalyzePair = {
   doc_b: number;
   score: number;
   label?: string;
+  shared_ngrams?: string[];
+  shared_ngrams_total?: number;
 };
 
 type LegacyAnalyzeResponse = {
@@ -31,6 +33,8 @@ function normalizeResponse(data: CompareFilesResponse | LegacyAnalyzeResponse): 
     doc_a: p.doc_a,
     doc_b: p.doc_b,
     score: p.score,
+    shared_ngrams: p.shared_ngrams ?? [],
+    shared_ngrams_total: p.shared_ngrams_total ?? p.shared_ngrams?.length ?? 0,
     label:
       p.label ??
       (p.score >= high ? "HIGH SIMILARITY" : p.score >= moderate ? "MODERATE SIMILARITY" : "LOW SIMILARITY"),
