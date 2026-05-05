@@ -74,3 +74,15 @@ Set frontend API URL in `frontend/.env`:
 ```env
 VITE_API_BASE_URL=http://127.0.0.1:8000
 ```
+
+## Contributors
+
+This project was developed collaboratively by:
+
+- [Eiad Oumer](https://github.com/eiadoumer)
+- [Mouhamad Hotait](https://github.com/MouhamadHotait)
+- Jean Marie Agha
+- Zahraa Shreif
+- Zeid Al Sarraj
+
+
