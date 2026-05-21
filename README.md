@@ -83,6 +83,6 @@ This project was developed collaboratively by:
 - [Mouhamad Hotait](https://github.com/MouhamadHotait)
 - Jean Marie Agha
 - Zahraa Shreif
-- Zeid Al Sarraj
+- [Zeid Al Sarraj](https://github.com/zeid-alsarraj)
 
 
