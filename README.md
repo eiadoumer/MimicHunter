@@ -81,7 +81,7 @@ This project was developed collaboratively by:
 
 - [Eiad Oumer](https://github.com/eiadoumer)
 - [Mouhamad Hotait](https://github.com/MouhamadHotait)
-- Jean Marie Agha
+- [Jean Marie Agha](https://guthub.com/jeanmarieaghaa)
 - Zahraa Shreif
 - [Zeid Al Sarraj](https://github.com/zeid-alsarraj)
 
